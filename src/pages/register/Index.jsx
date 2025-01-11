@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
-import styles from './Register.module.css'
+import styles from './Register.module.css';
+import register from '../../services/index.js';
+import {TailSpin} from 'react-loader-spinner'
+import toast from 'react-hot-toast';
 
 const Register = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    mobile: '',
+    phone: '',
     password: '',
     agreeToTerms: false
   });
   
   const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
 
   const validateForm = () => {
@@ -26,10 +30,10 @@ const Register = () => {
       newErrors.email = 'Please enter a valid email';
     }
     
-    if (!formData.mobile) {
-      newErrors.mobile = 'Mobile number is required';
-    } else if (!/^\d{10}$/.test(formData.mobile)) {
-      newErrors.mobile = 'Please enter a valid 10-digit mobile number';
+    if (!formData.phone) {
+      newErrors.phone = 'phone number is required';
+    } else if (!/^\d{10}$/.test(formData.phone)) {
+      newErrors.phone = 'Please enter a valid 10-digit phone number';
     }
     
     if (!formData.password) {
@@ -55,15 +59,40 @@ const Register = () => {
   };
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newErrors = validateForm();
-    
-    if (Object.keys(newErrors).length === 0) {
-      console.log('Form submitted:', formData);
-      // Add your form submission logic here
-    } else {
+    if(Object.keys(newErrors).length !== 0){
       setErrors(newErrors);
+      return;
+    }
+    setErrors({});
+    
+    try {      
+      setIsLoading(true);
+      const response = await register(formData);
+      console.log(response);
+
+      if(response.id)
+      toast.success(response.message);
+      else
+      toast('Email already exists', {
+        icon: '⚠️',
+      });
+      
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong")
+    }
+    finally{
+      setIsLoading(false);
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        password: '',
+        agreeToTerms: false
+      })
     }
   };
 
@@ -86,7 +115,7 @@ const Register = () => {
                             value={formData.name}
                             onChange={handleChange}
                         />
-                        {errors.name && <span className="error">{errors.name}</span>}
+                        {errors.name && <span className={styles.error}>{errors.name}</span>}
                     </div>
 
                     <div className={styles.form_group}>
@@ -97,18 +126,18 @@ const Register = () => {
                             value={formData.email}
                             onChange={handleChange}
                         />
-                        {errors.email && <span className="error">{errors.email}</span>}
+                        {errors.email && <span className={styles.error}>{errors.email}</span>}
                     </div>
 
                     <div className={styles.form_group}>
                         <input
                             type="tel"
-                            name="mobile"
-                            placeholder="Mobile"
-                            value={formData.mobile}
+                            name="phone"
+                            placeholder="phone"
+                            value={formData.phone}
                             onChange={handleChange}
                         />
-                        {errors.mobile && <span className="error">{errors.mobile}</span>}
+                        {errors.phone && <span className={styles.error}>{errors.phone}</span>}
                     </div>
 
                     <div className={styles.form_group}>
@@ -119,7 +148,7 @@ const Register = () => {
                             value={formData.password}
                             onChange={handleChange}
                         />
-                        {errors.password && <span className="error">{errors.password}</span>}
+                        {errors.password && <span className={styles.error}>{errors.password}</span>}
                     </div>
 
                     <div className={`${styles.form_group} ${styles.checkbox}`} >
@@ -132,11 +161,21 @@ const Register = () => {
                             />
                             By creating an account, I agree to our terms of use and privacy policy
                         </label>
-                        {errors.agreeToTerms && <span className="error">{errors.agreeToTerms}</span>}
+                        {errors.agreeToTerms && <span className={styles.error}>{errors.agreeToTerms}</span>}
                     </div>
 
-                    <button type="submit" className={styles.submit_btn}>
+                    <button type="submit" disabled={isLoading} className={styles.submit_btn} >
                         Create Account
+                        <TailSpin
+                          visible={isLoading}
+                          height="20"
+                          width="20"
+                          color="#ffffff"
+                          ariaLabel="tail-spin-loading"
+                          radius="1"
+                          wrapperStyle={{}}
+                          wrapperClass=""
+                          />
                     </button>
                 </form>
 

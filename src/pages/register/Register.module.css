@@ -72,6 +72,7 @@
   
   .form_group {
     margin-bottom: 1.5rem;
+    position:relative
   }
   
   .form_group input:not([type="checkbox"]) {
@@ -84,29 +85,32 @@
   
   .form_group input:focus {
     outline: none;
-    border-color: #ff4757;
+    border-color: #3f3d3e;
   }
   
   .checkbox {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.5rem;
+    /* display: flex;
+    align-items: flex-start; */
+    gap: 0.9rem;
   }
   
   .checkbox label {
     font-size: 0.7rem;
     color: rgba(82, 82, 82, 1);
     line-height: 1.4;
+    display: block;
   }
   
   .error {
     color: #dc3545;
     font-size: 0.8rem;
-    margin-top: 0.3rem;
-    display: block;
+    margin-top: 0.1rem;
+    position: absolute;
   }
   
   .submit_btn {
+    display: flex;
+    justify-content: space-around;
     width: 50%;
     padding: 0.8rem;
     background-color: #ff4757;
@@ -121,6 +125,10 @@
   .submit_btn:hover {
     background-color: #ff1c32;
   }
+
+  .submit_btn:disabled {
+    background-color: #ff1c33a0;
+  }
   
   .login_link {
     /* text-align: center; */
@@ -130,7 +138,7 @@
   }
   
   .login_link a {
-    color: #666;
+    color: #0b60e8;
     text-decoration: none;
   }
   

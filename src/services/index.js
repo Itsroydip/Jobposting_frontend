@@ -1,6 +1,6 @@
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
-export const register = async (data) => {
+const register = async (data) => {
     const response = await fetch(`${BACKEND_URL}/api/user/signup`,{
         method: 'POST',
         headers: {
@@ -15,3 +15,5 @@ export const register = async (data) => {
     
 
 }
+
+export default register;
