@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import styles from './Register.module.css';
-import register from '../../services/index.js';
-import {TailSpin} from 'react-loader-spinner'
+import {register} from '../../services/index.js';
+import {TailSpin} from 'react-loader-spinner';
 import toast from 'react-hot-toast';
+import {useNavigate, Link} from 'react-router-dom';
 
 const Register = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -73,8 +75,10 @@ const Register = () => {
       const response = await register(formData);
       console.log(response);
 
-      if(response.id)
-      toast.success(response.message);
+      if(response.id){
+        toast.success(response.message);
+        navigate('/login');
+      }      
       else
       toast('Email already exists', {
         icon: '⚠️',
@@ -95,7 +99,6 @@ const Register = () => {
       })
     }
   };
-
 
 
   return (
@@ -180,7 +183,7 @@ const Register = () => {
                 </form>
 
                 <p className={styles.login_link}>
-                    Already have an account? <a href="/">Sign In</a>
+                    Already have an account? <Link to="/login">Sign In</Link>
                 </p>
             </div>
         </div>

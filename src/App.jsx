@@ -1,4 +1,4 @@
-import {Login,Register} from './pages'
+import {Login,Register, Home} from './pages'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import {Toaster} from 'react-hot-toast'
 import './App.css'
@@ -8,7 +8,8 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register/>} />
           
         </Routes>      
