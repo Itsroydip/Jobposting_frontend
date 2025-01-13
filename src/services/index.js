@@ -32,7 +32,15 @@ const login = async (data) => {
 
 }
 
+const getJobs = async () => {
+    const response = await fetch(`${BACKEND_URL}/api/job/`)
+    if(response.status === 200)
+        return response.json();
+    throw new Error("Something went wrong");
+}
+
 export {
     register,
-    login
+    login,
+    getJobs
 } 
