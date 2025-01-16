@@ -70,6 +70,7 @@ nav::after {
     display: flex;
     gap: 1rem;
     font-family: 'DM Sans';
+    color: white
     
   }
   
@@ -80,6 +81,16 @@ nav::after {
     cursor:pointer;
     font-weight: bold;
     z-index: 100;
+  }
+
+  .logout_btn {
+    border: none;
+    cursor:pointer;
+    font-weight: bold;
+    z-index: 100;
+    color: white;
+    background: transparent;
+    font-size: 1rem;
   }
   
   .login_btn {
@@ -274,9 +285,27 @@ nav::after {
     font-size: 0.9rem;
     color: #666;
   }
+
+  .buttons{
+    display: flex;
+    gap: 1rem;
+    
+  }
+
+  .edit_job {
+    width: 8rem;
+    background: #ffffff;
+    color: rgba(237, 83, 83, 1);
+    border: 2px solid rgba(237, 83, 83, 1);    
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+    font-weight: 600;
+  }
   
   .view_details {
-    width: 10rem;
+    width: 8rem;
     background: #ff6b6b;
     color: white;
     border: none;
@@ -284,6 +313,7 @@ nav::after {
     border-radius: 4px;
     cursor: pointer;
     white-space: nowrap;
+    font-weight: 600;
   }
 
   .view_details:hover{

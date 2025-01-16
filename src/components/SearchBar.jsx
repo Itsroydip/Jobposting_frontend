@@ -1,8 +1,9 @@
 import React from 'react';
 import styles from '../pages/home/Home.module.css'
+import {useNavigate} from 'react-router-dom'
 
-
-const SearchBar = ({ selectedSkills, setSelectedSkills }) => {
+const SearchBar = ({ selectedSkills, setSelectedSkills, isLoggedIn, setIsloggedIn }) => {
+    const navigate = useNavigate();
 
   const removeSkill = (skillToRemove) => {
     setSelectedSkills(selectedSkills.filter(skill => skill !== skillToRemove));
@@ -21,12 +22,19 @@ const SearchBar = ({ selectedSkills, setSelectedSkills }) => {
                 {selectedSkills.map(skill => (
                     <span key={skill} className={styles.skill_tag}>
                         {skill}
-                        <button onClick={() => removeSkill(skill)} className={styles.remove_skill}>×</button>
+                        <button onClick={() => removeSkill(skill)} className={styles.remove_skill}> × </button>
                     </span>
                 ))}
             </div>
             <div className={styles.filter_buttons}>
-                <button className={styles.apply_filter}>Apply Filter</button>
+                {
+                    isLoggedIn ?
+                    <button className={styles.apply_filter} onClick={()=>navigate('/job/create')}> + Add Job</button>
+                    :
+                    <button className={styles.apply_filter}>Apply Filter</button>
+
+                }
+                
                 <button className={styles.clear_filter}>Clear</button>
             </div>
         </div>

@@ -11,8 +11,7 @@ const register = async (data) => {
 
     if(response.status === 200 || response.status === 400)
         return response.json();
-    throw new Error("Something went wrong");
-    
+    throw new Error("Something went wrong");   
 
 }
 
@@ -39,8 +38,26 @@ const getJobs = async () => {
     throw new Error("Something went wrong");
 }
 
+const createJob = async (data)=> {
+    const response = await fetch(`${BACKEND_URL}/api/job/create`,{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'authorization': localStorage.getItem("token")
+        },
+        body: JSON.stringify(data),
+        
+    })
+
+    if(response.status === 200)
+        return response.json();
+    throw new Error("Something went wrong");
+
+}
+
 export {
     register,
     login,
-    getJobs
+    getJobs,
+    createJob
 } 

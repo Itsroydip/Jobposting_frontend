@@ -60,6 +60,7 @@ const Login = () => {
 
       if(response.token){
         localStorage.setItem("token", response.token);
+        localStorage.setItem("user", response.id);
         toast.success(response.message);
         navigate('/');
       }      

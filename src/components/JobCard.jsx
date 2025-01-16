@@ -3,7 +3,7 @@ import styles from '../pages/home/Home.module.css';
 import flag from '../assets/indflag.jpeg'
 
 
-const JobCard = ({ job }) => {
+const JobCard = ({ job, isLoggedIn }) => {
   
   return (
     <div className={styles.job_card}>
@@ -37,7 +37,14 @@ const JobCard = ({ job }) => {
 
           </div>
 
-          <button className={styles.view_details}>View details</button>          
+          <div className={styles.buttons}>
+            {
+              isLoggedIn &&
+              <button className={styles.edit_job}>Edit Job</button> 
+            }
+            <button className={styles.view_details}>View details</button> 
+
+          </div>         
 
       </div>
     </div>
